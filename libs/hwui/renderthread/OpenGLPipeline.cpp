@@ -395,8 +395,8 @@ sk_sp<Bitmap> OpenGLPipeline::allocateHardwareBitmap(RenderThread& renderThread,
     uirenderer::Caches& caches = uirenderer::Caches::getInstance();
 
     const SkImageInfo& info = skBitmap.info();
-    if (info.colorType() == kUnknown_SkColorType || info.colorType() == kAlpha_8_SkColorType) {
-        ALOGW("unable to create hardware bitmap of colortype: %d", info.colorType());
+    if (info.colorType() == kUnknown_SkColorType) {
+        ALOGW("unable to create hardware bitmap of configuration");
         return nullptr;
     }
 
