@@ -43,6 +43,7 @@ static const char* kPathWhitelist[] = {
   "/dev/ion",
   "/dev/dri/renderD129", // Fixes b/31172436
   "/system/framework/org.lineageos.platform-res.apk",
+  "/proc/ged", //TRONX2100 for MTK_HARDWARE
 };
 
 static const char kFdPath[] = "/proc/self/fd";
