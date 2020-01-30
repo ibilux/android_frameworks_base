@@ -229,7 +229,7 @@ class BackgroundTaskLoader implements Runnable {
 
             if (DEBUG) Log.d(TAG, "Loading thumbnail: " + t.key);
             final ThumbnailData thumbnailData = ssp.getTaskThumbnail(t.key.id,
-                    true /* reducedResolution */);
+                    false /* reducedResolution */);
 
             if (!mCancelled) {
                 // Notify that the task data has changed
