@@ -373,6 +373,8 @@ static bool uploadBitmapToGraphicBuffer(uirenderer::Caches& caches, SkBitmap& bi
 // TODO: handle SRGB sanely
 static PixelFormat internalFormatToPixelFormat(GLint internalFormat) {
     switch (internalFormat) {
+    case GL_ALPHA:
+        return PIXEL_FORMAT_TRANSPARENT;
     case GL_LUMINANCE:
         return PIXEL_FORMAT_RGBA_8888;
     case GL_SRGB8_ALPHA8:
@@ -395,8 +397,8 @@ sk_sp<Bitmap> OpenGLPipeline::allocateHardwareBitmap(RenderThread& renderThread,
     uirenderer::Caches& caches = uirenderer::Caches::getInstance();
 
     const SkImageInfo& info = skBitmap.info();
-    if (info.colorType() == kUnknown_SkColorType || info.colorType() == kAlpha_8_SkColorType) {
-        ALOGW("unable to create hardware bitmap of colortype: %d", info.colorType());
+    if (info.colorType() == kUnknown_SkColorType) {
+        ALOGW("unable to create hardware bitmap of configuration");
         return nullptr;
     }
 
