@@ -32,6 +32,7 @@ bool YuvToJpegEncoder::encode(SkWStream* stream, void* inYuv, int width,
     cinfo.err = jpeg_std_error(&sk_err);
     sk_err.error_exit = skjpeg_error_exit;
     if (setjmp(sk_err.fJmpBuf)) {
+        jpeg_destroy_compress(&cinfo);
         return false;
     }
     jpeg_create_compress(&cinfo);
@@ -45,6 +46,8 @@ bool YuvToJpegEncoder::encode(SkWStream* stream, void* inYuv, int width,
     compress(&cinfo, (uint8_t*) inYuv, offsets);
 
     jpeg_finish_compress(&cinfo);
+    
+    jpeg_destroy_compress(&cinfo);
 
     return true;
 }
