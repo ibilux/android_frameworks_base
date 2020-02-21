@@ -30,6 +30,7 @@ import android.graphics.Rect;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.util.Log;
 import android.view.View;
 
@@ -135,7 +136,7 @@ public class BarTransitions {
 
     private static class BarBackgroundDrawable extends Drawable {
         private final int mOpaque;
-        private final int mSemiTransparent;
+       private final int mSemiTransparent;
         private final int mTransparent;
         private final int mWarning;
         private final Drawable mGradient;
@@ -166,7 +167,7 @@ public class BarTransitions {
                 mSemiTransparent = context.getColor(
                         com.android.internal.R.color.system_bar_background_semi_transparent);
                 mTransparent = context.getColor(R.color.system_bar_background_transparent);
-                mWarning = Utils.getColorAttr(context, android.R.attr.colorError);
+                mWarning = SystemProperties.get("ro.battery.savermode_color", Utils.getColorAttr(context, android.R.attr.colorError));
             }
             mGradient = context.getDrawable(gradientResourceId);
         }
