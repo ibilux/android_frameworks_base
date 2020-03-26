@@ -1904,7 +1904,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (FactoryTest.isLongPressOnPowerOffEnabled()) {
             return LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM;
         }
-        if (mTorchLongPressPowerEnabled && (!isScreenOn() || isDozeMode())) {
+        if (mTorchLongPressPowerEnabled && (!isScreenOn() || isDozeMode() || mTorchEnabled)) {
             return LONG_PRESS_POWER_TORCH;
         }
         return mLongPressOnPowerBehavior;
@@ -3220,6 +3220,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     attrs.hideTimeoutMilliseconds = TOAST_WINDOW_TIMEOUT;
                 }
                 attrs.windowAnimations = com.android.internal.R.style.Animation_Toast;
+                // Toasts can't be clickable
+                attrs.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
                 break;
         }
 
